@@ -1,61 +1,7 @@
-// $(function () {
-//     var searchForm = $("#search-form");
-//     var cityInput = $("#city-input");
-//     var weatherDisplay = $("#weather-display");
-//     var searchHistory = $("#search-history");
-
-//     function fetchWeatherData() {
-//       // Use OpenWeatherMap API to get coordinates and weather data
-//         var apiKey = "9fda455ae9137822224a160754647dd2";
-//         var weatherEndpoint = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`;
-
-//         $.ajax({
-//           type: "GET",
-//           url: `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`,
-//           dataType: "json",
-//           success: function (json) {
-//             console.log(json);
-//             displayWeatherData(json);
-//           },
-//           error: function (xhr, status, err) {
-//             console.log(err);
-//           },
-//         });
-
-//         var lat = data.coord.lat;
-//         var lon = data.coord.lon;
-//     }
-
-//     // Function to display weather data
-//     function displayWeatherData(data) {
-//       // Update the weatherDisplay section with the data
-//       // ...
-//     }
-
-//     // Function to handle form submission
-//     searchForm.on("submit", function (event) {
-//       event.preventDefault();
-//       const city = cityInput.val().trim();
-//       if (city) {
-//         fetchWeatherData(city);
-//         // Save city to localStorage
-//         // ...
-//       }
-//     });
-
-//     // Function to load search history from localStorage
-//     function loadSearchHistory() {
-//       // Retrieve and display search history
-//       // ...
-//     }
-
-//     // Load search history on page load
-//     fetchWeatherData();
-//     // loadSearchHistory();
-// });
 var city;
 var lat;
 var lon;
+var buttonGrp = document.getElementById("button-grp");
 var apiKey = "9fda455ae9137822224a160754647dd2";
 // var geocoder = new google.maps.Geocoder();
 
@@ -66,6 +12,7 @@ var searchButton = document.getElementById("search");
 var humidity = document.getElementById("humidity"); 
 var currentDate = document.getElementById("current-date");
 var weatherDisplay = document.getElementById("weather-display");
+var existingButton;
 weatherDisplay.style.display = "none";
 
 searchButton.addEventListener("click", function(e) {
@@ -76,12 +23,23 @@ searchButton.addEventListener("click", function(e) {
 
     var cityInput = document.getElementById("city-input").value;
     var cityName = document.getElementById("city-name");
+    var cityNameString = cityName.textContent
+      .replace(/\W+/g, "-")
+      .toLowerCase();
+
+    existingButton = document.getElementById(cityNameString);
     var title = document.getElementById("title");
     var temperature = document.getElementById("temperature");
     var wind = document.getElementById("wind");
     var currentIcon = document.getElementById("weather-icon");
 
     var forecastRow = document.getElementById("forecast-row");
+
+    // var buttonGrp = document.getElementById("button-grp");
+    // var btnHtml = `                   
+    //     <button id="${localStorage.getItem("city")}" type="button" class="btn btn-secondary">${localStorage.getItem("city")}</button>
+    //     `;
+    // buttonGrp.append(btnHtml);
 
     forecastRow.innerHTML = "";
     cityName.textContent = "";
@@ -109,7 +67,36 @@ searchButton.addEventListener("click", function(e) {
                 console.log("Temperature: " + temp + "°F");
 
                 cityName.textContent = data.name;
+                localStorage.setItem("city", cityNameString.textContent); // Store the city name in local storage
 
+                // Check if a button with the same city name already exists
+                // var existingButton = document.getElementById(cityName);
+                if (!existingButton) {
+                  // If not, create a new button and append it to buttonGrp
+                  var newButton = document.createElement("button");
+                  newButton.id = cityName.textContent.replace(/\W+/g, "-").toLowerCase();
+                  newButton.type = "submit";
+                  newButton.className = "btn btn-secondary";
+                  newButton.textContent = cityName.textContent;
+                  newButton.addEventListener("click", function (e) {
+                    // Handle the click event, e.g., fetch and display weather data for the city
+
+                    e.preventDefault();
+                    e.stopPropagation();
+                    cityInput.value = cityName;
+                    if (existingButton) {
+                      // If the button already exists, remove it and create a new one
+                      existingButton.remove();
+                    }
+                    // searchButton.click();
+                
+
+                  });
+                  buttonGrp.appendChild(newButton);
+                }
+
+    // When the page loads, recreate the buttons from local storage
+    
                 title.innerHTML += ` for ${data.name}: `;
 
                 currentIcon.src = `https://openweathermap.org/img/w/${data.weather[0].icon}.png`;
@@ -173,6 +160,34 @@ searchButton.addEventListener("click", function(e) {
         }
     })
 })
+
+window.onload = function () {
+    // var buttonGrp = document.getElementById("button-grp");
+    var storedCity = localStorage.getItem("city");
+    if (storedCity) {
+        var existingButton = document.getElementById(storedCity);
+        if (!existingButton) {
+        var newButton = document.createElement("button");
+        newButton.id = storedCity;
+        newButton.type = "submit";
+        newButton.className = "btn btn-secondary";
+        newButton.textContent = storedCity;
+        newButton.addEventListener("click", function (e) {
+            // Handle the click event, e.g., fetch and display weather data for the city
+            e.preventDefault();
+            e.stopPropagation();
+            var cityInput = document.getElementById("city-input");
+            cityInput.value = storedCity;
+            searchButton.click();
+        })
+            buttonGrp.appendChild(newButton);
+        
+        };
+    }
+}
+
+//     }
+//     }
 
 // geocoder.geocode({address: cityInput}, function (results, status) {
 //     if (status === google.maps.GeocoderStatus.OK) {
