@@ -6,6 +6,7 @@ body {
 }
 
 main.container {
+    padding-left: 2%;
     margin: 0px;
     border: 0px;
     display: flex;
@@ -43,6 +44,7 @@ h2#city-name, h2#current-date, img#weather-icon {
     background-color: #3d9cbf;
     border: 0px #3d9cbf;
     font-size: 0.8rem;
+    font-weight: 700;
     color: rgb(255, 240, 245);
     height: 13rem; 
     display: flex;
@@ -81,9 +83,9 @@ h5.card-title {
 #weather-display{
     margin: 1rem 0rem 1rem 1rem;
     padding: 1rem;
-    background-color: rgba(208, 157, 75, 0.876);
-    border-radius: 0.5rem;
-    border: 2px solid #333;
+    /* background-color: rgba(208, 157, 75, 0.876); */
+    /* border-radius: 0.5rem; */
+    /* border: 2px solid #333; */
     width: 100%;
 }
 
@@ -102,6 +104,7 @@ h5.card-title {
 
 .form-group.btn-group {
     flex-direction: column;
+    overflow-y: scroll;
 }
 
 .btn.btn-secondary {
@@ -112,4 +115,57 @@ h5.card-title {
 /* Additional styles for displaying weather data */
 .form-group {
     margin-bottom: 1rem;
+}
+
+
+
+
+
+
+
+/* Media Queries */
+
+@media screen and (max-width: 768px) {
+    main.container {
+        flex-direction: column;
+    }
+    #search-form {
+        width: 100%;
+    }
+    #search {
+        width: 100%;
+    }
+    #city-input {
+        width: 100%;
+    }
+    #weather-display {
+        margin: 1rem 0rem 1rem 0rem;
+    }
+    #current {
+        padding: 1rem;
+        border: 2px solid #333;
+        border-radius: 0.5rem;
+        height: 35%;
+        background-color: #3d9cbf;
+    }
+    #search-history {
+        flex-direction: column;
+        display: block;
+    }
+    .form-group.btn-group {
+        flex-direction: row;
+    }
+    .btn.btn-secondary {
+        margin-top: 0.5rem;
+        margin-right: 0.5rem;
+    }
+}
+
+@media screen and (min-width: 1580px){
+
+    main.container {
+        padding-left: 5%;
+    }
+
+    
 }

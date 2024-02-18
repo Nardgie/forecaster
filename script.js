@@ -65,10 +65,13 @@ var searchButton = document.getElementById("search");
 // var temperature = document.getElementById("temperature");
 var humidity = document.getElementById("humidity"); 
 var currentDate = document.getElementById("current-date");
+var weatherDisplay = document.getElementById("weather-display");
+weatherDisplay.style.display = "none";
 
 searchButton.addEventListener("click", function(e) {
     // All of this could be in a function
     e.preventDefault();
+    weatherDisplay.style.display = "block";
     var geocoder = new google.maps.Geocoder();
 
     var cityInput = document.getElementById("city-input").value;
@@ -169,8 +172,6 @@ searchButton.addEventListener("click", function(e) {
             console.log("Geocoding failed: " + status);
         }
     })
-    cityInput.value = "";
-    cityInput.clear()
 })
 
 // geocoder.geocode({address: cityInput}, function (results, status) {
