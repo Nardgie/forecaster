@@ -1,0 +1,115 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+main.container {
+    margin: 0px;
+    border: 0px;
+    display: flex;
+    width: 100%;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+
+h2#city-name, h2#current-date, img#weather-icon {
+    margin-bottom: 0.5rem;
+    display: inline-block;
+    font-weight: bold;
+}
+
+.forecast h3 {
+    font-weight: bold;
+}
+
+#card-col {
+    margin: 0.5em;
+    /* padding: 0.5rem; */
+    padding-bottom: 1rem;
+    background-color: #3d9cbf;
+    border-radius: 0.5rem;
+    border: 2px solid #333;
+    height: 15rem;
+}
+
+.card {
+    background-color: #3d9cbf;
+    border: 0px #3d9cbf;
+    font-size: 0.8rem;
+    color: rgb(255, 240, 245);
+    height: 13rem; 
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+/* .card-body {
+    display: flex;
+    flex-direction: column;
+
+} */
+
+.forecast-row.col-3 {
+    padding: 1rem;
+}
+
+h5.card-title {
+    font-weight: bold;
+}
+
+#search-form {
+    width: 20rem;
+}
+
+#search {
+    width: 100%;
+}
+
+#city-input {
+    padding: 0.5rem;
+    margin-right: 0.5rem;
+    width: 100%;
+}
+
+#weather-display{
+    margin: 1rem 0rem 1rem 1rem;
+    padding: 1rem;
+    background-color: rgba(208, 157, 75, 0.876);
+    border-radius: 0.5rem;
+    border: 2px solid #333;
+    width: 100%;
+}
+
+#current {
+    padding: 1rem;
+    border: 2px solid #333;
+    border-radius: 0.5rem;
+    height: 35%;
+    background-color: #3d9cbf;
+}
+
+#search-history {
+    flex-direction: row;
+    display: block;
+}
+
+.form-group.btn-group {
+    flex-direction: column;
+}
+
+.btn.btn-secondary {
+    margin-top: 1rem;
+    margin-right: 0.5rem;
+}
+
+/* Additional styles for displaying weather data */
+.form-group {
+    margin-bottom: 1rem;
+}
